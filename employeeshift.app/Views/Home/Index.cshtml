@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Core.Dtos.EmployeeShifts.EmployeeShiftDto>
+
+
+<form asp-action="Index">
+    
+    <div class="row">
+        <div class="col-2">
+            <input type="text" class="form-control" placeholder="Employee Id" name="id" />
+        </div>
+        <div class="col-2">         
+            <button type="submit" class="btn-primary btn">Search</button>
+        </div>
+    </div>
+</form>
+<div class="row">
+   <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Employee Id</th>
+              <th scope="col">Full Name</th>
+              <th scope="col">Total Number Work Hours</th>
+            </tr>
+          </thead>
+          <tbody>
+              @foreach(var record in Model)
+                {       
+                <tr>
+                  <th>@record.EmployeeId</th>
+                  <td>@record.FullName</td>
+                  <td>@record.TotalNumberWorkHours</td>
+                </tr>  
+                }
+          </tbody>
+        </table>
+   </div> 
+</div>
