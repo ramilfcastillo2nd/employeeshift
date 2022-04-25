@@ -18,21 +18,21 @@ namespace employeeshift.app.Controllers
         public async Task<IActionResult> Index(int? id)
         {
 
-            var u = "https://localhost:44359/api/employeeshift";
+            //var u = "https://localhost:44359/api/employeeshift";
 
-            using var client = new HttpClient();
+            //using var client = new HttpClient();
 
-            var builder = new UriBuilder(u);
-            if (id != null)
-                builder.Query = $"id={id}";
-            var url = builder.ToString();
+            //var builder = new UriBuilder(u);
+            //if (id != null)
+            //    builder.Query = $"id={id}";
+            //var url = builder.ToString();
 
-            var res = await client.GetAsync(url);
+            //var res = await client.GetAsync(url);
 
-            var content = await res.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<List<EmployeeShiftDto>>(content);
+            //var content = await res.Content.ReadAsStringAsync();
+            //var result = JsonConvert.DeserializeObject<List<EmployeeShiftDto>>(content);
 
-            return View(result);
+            return View();
         }
 
         public IActionResult Privacy()

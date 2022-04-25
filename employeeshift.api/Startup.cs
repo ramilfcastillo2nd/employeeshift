@@ -21,6 +21,16 @@ namespace employeeshift.api
                 o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
+            services.AddCors(options => {
+                options.AddPolicy("CorsList", builder => {
+                    builder.WithOrigins(
+                        _config["App:CorsOrigins"]
+                            .Split(",", StringSplitOptions.RemoveEmptyEntries)
+                            .ToArray()
+                        );
+                });
+            });
+
             services.AddControllers();
             services.AddDbContext<EmployeeShiftContext>(options =>
             {
@@ -42,7 +52,7 @@ namespace employeeshift.api
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
+            app.UseCors("CorsList");
             app.UseAuthentication();
             app.UseSwaggerDocumentation();
             app.UseAuthorization();

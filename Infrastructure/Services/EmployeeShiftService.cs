@@ -25,11 +25,15 @@ namespace Infrastructure.Services
                 {
                     var employeeShift = await _employeeWorksShiftRepository.EmployeeWorksShifts().AsNoTracking()
                         .Include(x => x.Shift)
-                        .FirstOrDefaultAsync(x => x.EmployeeId == employee.EmployeeId);
+                        .Where(x => x.EmployeeId == employee.EmployeeId)
+                        .ToListAsync();
+
                     var totalHours = 0.0;
                     if (employeeShift != null)
-                        totalHours = (employeeShift.Shift.ShiftEnd - employeeShift.Shift.ShiftStart).TotalHours;
+                        foreach(var shift in employeeShift)
+                            totalHours += (shift.Shift.ShiftEnd - shift.Shift.ShiftStart).TotalHours;
 
+                    totalHours = totalHours * 5 * 4;
                     lstEmployeeShifts.Add(new EmployeeShiftDto
                     {
                         EmployeeId = employee.EmployeeId,
@@ -45,11 +49,16 @@ namespace Infrastructure.Services
                 if (employee != null)
                 {
                     var employeeShift = await _employeeWorksShiftRepository.EmployeeWorksShifts().AsNoTracking()
-                                                .Include(x => x.Shift)
-                                                .FirstOrDefaultAsync(x => x.EmployeeId == employee.EmployeeId);
+                       .Include(x => x.Shift)
+                       .Where(x => x.EmployeeId == employee.EmployeeId)
+                       .ToListAsync();
+
                     var totalHours = 0.0;
                     if (employeeShift != null)
-                        totalHours = (employeeShift.Shift.ShiftEnd - employeeShift.Shift.ShiftStart).TotalHours;
+                        foreach (var shift in employeeShift)
+                            totalHours += (shift.Shift.ShiftEnd - shift.Shift.ShiftStart).TotalHours;
+
+                    totalHours = totalHours * 5 * 4;
 
                     lstEmployeeShifts.Add(new EmployeeShiftDto
                     {
