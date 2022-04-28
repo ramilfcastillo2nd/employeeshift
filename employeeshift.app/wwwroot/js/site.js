@@ -10,11 +10,8 @@ $(document).ready(function () {
 });
 
 function loadTable() {
-    $("#tblEmployeeShifts tbody tr").each(function () {
-        this.parentNode.removeChild(this);
-    });
+    var url = "https://localhost:44359/api/employeeshift";
 
-    var url = "https://localhost:44359/api/employeeshift"
     if (empId > 0)
         url += "?id=" + empId;
 
@@ -24,9 +21,10 @@ function loadTable() {
         contentType: false,
         processData: true,
         success: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                $("#tblEmployeeShifts").before("<tr><td>" + data[i].employeeId + "</td><td>" + data[i].fullName + "</td><td>" + data[i].totalNumberWorkHours + "</td></tr>");
-            } 
+            $("#tblEmployeeShifts").empty();
+            $.each(data, function (index, value) {
+                $("#tblEmployeeShifts").append("<tr><td>" + value.employeeId + "</td><td>" + value.fullName + "</td><td>" + value.totalNumberWorkHours + "</td></tr>");
+            });
         },
         error: function (err) {
             console.log(err)
