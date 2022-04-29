@@ -23,7 +23,9 @@ function loadTable() {
         success: function (data) {
             $("#tblEmployeeShifts").empty();
             $.each(data, function (index, value) {
-                $("#tblEmployeeShifts").append("<tr><td>" + value.employeeId + "</td><td>" + value.fullName + "</td><td>" + value.totalNumberWorkHours + "</td></tr>");
+                var empId = value.employeeId == 0 ? '' : value.employeeId;
+                var fullName = value.fullName == 0 ? '' : value.fullName;
+                $("#tblEmployeeShifts").append("<tr><td>" + empId + "</td><td>" + fullName + "</td>" + "<td>" + value.month + "</td><td>" + value.totalNumberWorkHours + "</td></tr>");
             });
         },
         error: function (err) {
@@ -37,7 +39,7 @@ function loadTable() {
 function loadDrpDwnList() {
     $.ajax({
         type: 'GET',
-        url: "https://localhost:44359/api/employeeshift",
+        url: "https://localhost:44359/api/employee",
         contentType: false,
         processData: false,
         success: function (data) {

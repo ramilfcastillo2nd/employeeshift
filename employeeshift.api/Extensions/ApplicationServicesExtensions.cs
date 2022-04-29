@@ -13,6 +13,7 @@ namespace employeeshift.api.Extensions
             services.AddScoped<IShiftRepository, ShiftRepository>();
             services.AddScoped<IEmployeeWorksShiftRepository, EmployeeWorksShiftRepository>();
             services.AddScoped<IEmployeeShiftService, EmployeeShiftService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
             return services;
         }
     }
